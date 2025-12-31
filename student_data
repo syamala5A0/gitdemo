@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Todo List Using Array</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .fail {
+      color: red;
+      font-weight: bold;
+    }
+
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 6px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<h2> Task 1. All Student Names</h2>
+<ul id="allStudents"></ul>
+
+<h2>Task 2. Students Scoring More Than 60</h2>
+<ul id="above60"></ul>
+
+<h2>Task 3. Student With Highest Marks</h2>
+<p id="topper"></p>
+
+<h2>Task 4. All Students Table</h2>
+<table id="studentTable">
+  <tr>
+    <th>Name</th>
+    <th>Marks</th>
+    <th>Department</th>
+  </tr>
+</table>
+
+<h2>Task 5. Average Marks</h2>
+<p id="average"></p>
+
+<script>
+const students = [
+  { id: 1, name: "sweety", marks: 90, department: "CSE" },
+  { id: 2, name: "monisha", marks: 92, department: "ECE" },
+  { id: 3, name: "trishika", marks: 85, department: "CSE" },
+  { id: 4, name: "Haree", marks: 66, department: "CSE" },
+  { id: 5, name: "Shashi", marks: 88, department: "ECE" },
+  { id: 6, name: "Murthy", marks: 39, department: "MECH" },
+  { id: 7, name: "Anjali", marks: 30, department: "CSE" },
+  
+];
+
+/* task 1 */
+students.forEach(s => {
+  const li = document.createElement("li");
+  li.textContent = s.name;
+  document.getElementById("allStudents").appendChild(li);
+});
+
+/* task 2 */
+students.filter(s => s.marks > 60).forEach(s => {
+  const li = document.createElement("li");
+  li.textContent = `${s.name} (${s.marks})`;
+  document.getElementById("above60").appendChild(li);
+});
+
+/* task 3 */
+const highest = students.reduce((max, s) => s.marks > max.marks ? s : max);
+document.getElementById("topper").textContent =
+  `${highest.name} (${highest.marks})`;
+
+/* task 4 */
+students.forEach(s => {
+  const row = document.getElementById("studentTable").insertRow();
+  row.insertCell(0).textContent = s.name;
+  row.insertCell(1).textContent = s.marks;
+  row.insertCell(2).textContent = s.department;
+
+  if (s.marks < 50) {
+    row.classList.add("fail");
+  }
+});
+
+/* task 5 */
+const avg =
+  students.reduce((sum, s) => sum + s.marks, 0) / students.length;
+document.getElementById("average").textContent =
+  avg.toFixed(2);
+
+</script>
+
+</body>
+</html>
