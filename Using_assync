@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SpaceX</title>
+</head>
+<body>
+
+  <h1>SpaceX_Launch_Dashboard</h1>
+
+  <button id="btn">Load Latest Launch</button>
+
+  <div id="status"></div>
+  <div id="result"></div>
+
+  <script>
+    document.getElementById("btn").addEventListener("click", async function () {
+
+      document.getElementById("status").innerText = "Please wait...";
+
+      try {
+        const response = await fetch(
+          "https://api.spacexdata.com/v4/launches/latest"
+        );
+        const data = await response.json();
+
+        document.getElementById("status").innerText = "";
+        document.getElementById("result").innerHTML =
+          "<b>Mission Name:</b> " + data.name;
+      }
+      catch (error) {
+        document.getElementById("status").innerText = "";
+        document.getElementById("result").innerText =
+          "Failed to load launch details";
+      }
+    });
+  </script>
+
+</body>
+</html>
